@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Tuning parameters
             const lerpFactor = 0.1; // Smooth following speed
-            const returnLerpFactor = 0.02; // Slower return speed
+            const returnLerpFactor = 0.01; // 마우스 이탈 시 복귀 속도 (느리게 모이는 효과)
 
             // State
             let isHovering = false;
