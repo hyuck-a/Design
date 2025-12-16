@@ -140,13 +140,23 @@ h2.section-title {
     max-width: 600px;
 }
 
-#about .about-image-placeholder {
+/* 1. Image Container (Wrapper) Style */
+#about .about-image-wrapper {
     width: 400px;
     height: 400px;
-    background: #1a1a1f;
     border-radius: 12px;
     flex-shrink: 0;
-    background-image: radial-gradient(circle at 75% 50%, rgba(90, 0, 150, 0.5), transparent 70%);
+    overflow: hidden;
+    background: #1a1a1f;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
+}
+
+/* 2. Actual Image Tag Style */
+#about .character-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .skill-tags {
@@ -396,7 +406,7 @@ h2.section-title {
         gap: 40px;
     }
 
-    #about .about-image-placeholder {
+    #about .about-image-wrapper {
         width: 100%;
         height: 300px;
     }
