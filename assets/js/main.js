@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. 프로젝트 섹션 슬라이더 기능 구현 ---
+    // --- 1. Project Section Slider Functionality ---
     const track = document.getElementById('projectsTrack');
     const prevBtn = document.getElementById('prevSlideBtn');
     const nextBtn = document.getElementById('nextSlideBtn');
@@ -10,35 +10,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         const totalCards = cards.length;
 
-        // CSS에서 설정된 값과 동기화
+        // Synced with CSS values
         const cardWidth = 380;
         const margin = 30;
-        const slideStep = cardWidth + margin; // 한 번에 이동할 거리 (카드 1개 너비 + 간격)
+        const slideStep = cardWidth + margin;
 
         const updateSlider = () => {
             const offset = -currentSlide * slideStep;
             track.style.transform = `translateX(${offset}px)`;
 
-            // 버튼 상태 업데이트: 트랙의 총 너비 계산
+            // Button State Updates
             const trackWidth = totalCards * cardWidth + (totalCards - 1) * margin;
             const containerWidth = container.clientWidth;
 
-            // 프로젝트 내용이 컨테이너보다 길 때만 슬라이드 활성화
+            // Only enable slide if content exceeds container
             if (trackWidth > containerWidth) {
-                // 첫 Slide일 때 prev 비활성화
                 prevBtn.disabled = currentSlide === 0;
 
-                // 마지막으로 슬라이드 할 수 있는 위치를 계산
-                // 컨테이너 너비를 고려하여 다음 버튼 비활성화 시점 결정
                 const maxSlideOffset = trackWidth - containerWidth;
                 const currentOffset = currentSlide * slideStep;
 
-                // 현재 오프셋이 최대 오프셋을 초과하면 (마지막 슬라이드에 도달) next 버튼 비활성화
-                // (약간의 오차를 허용하기 위해 1px 여유를 둡니다)
+                // Disable next button if at the end (with 1px buffer)
                 nextBtn.disabled = currentOffset >= (maxSlideOffset - 1);
 
             } else {
-                // 프로젝트 4개가 모두 보이는 경우 (슬라이드 불필요)
+                // All projects visible
                 prevBtn.disabled = true;
                 nextBtn.disabled = true;
             }
@@ -54,20 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSlider();
         });
 
-        // 초기 설정 및 화면 크기 변경 시 슬라이더 상태 업데이트
+        // Update on resize
         window.addEventListener('resize', () => {
-            currentSlide = 0; // 리사이즈 시 초기화 (안전장치)
-            updateSlider();
+            updateSlider(); // Simply recalculate, keeping current slide if valid or handled by update logic
         });
         updateSlider();
     }
 
 
-    // --- 2. 커서 추적 및 역동적 발광체 구현 --- (이전과 동일)
+    // --- 2. Cursor Tracking & Dynamic Glow (Retained) ---
     if (window.innerWidth > 768) {
         const glowBlob = document.getElementById('glow-blob');
         const customCursor = document.getElementById('custom-cursor');
-        const interactables = document.querySelectorAll('a, button, .card-content');
+        const interactables = document.querySelectorAll('a, button, .card-content, .nav-links a');
 
         const homeX = window.innerWidth * 0.75;
         const homeY = window.innerHeight * 0.5;
@@ -134,4 +129,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateBlob();
     }
+
+    // --- 3. Navigation Scroll & Active State ---
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.page-section, #works');
+
+    const setActiveLink = () => {
+        let current = '';
+        sections.forEach(section => {
+            // Offset for header height
+            const sectionTop = section.offsetTop - 150;
+            if (scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href').includes(current)) {
+                a.classList.add('active');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', setActiveLink);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Initial check
+    setActiveLink();
 });

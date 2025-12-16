@@ -4,8 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antigravity Portfolio - Single Page Project Slider</title>
+    <title>PORTFOLIO. - Fully Restored Layout</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -14,99 +19,155 @@
 
     <div id="custom-cursor"></div>
 
-    <div class="container">
+    <header>
+        <div class="container nav-content">
+            <div class="logo">PORTFOLIO.</div>
+            <nav class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#works">Work</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-        <h2 class="section-title">Selected Works<span class="dot">.</span></h2>
+    <main class="container">
 
-        <div class="projects-wrapper">
+        <section class="page-section" id="home">
+            <div>
+                <span class="creative-developer">CREATIVE DEVELOPER</span>
+                <h1>My Design Portfolio</h1>
+                <p>저는 웹 기술을 통해 창의적인 아이디어를 현실로 만드는 개발자입니다. 사용자 중심의 인터페이스와 강력한 비주얼을 추구합니다.</p>
+                <button class="btn-primary"
+                    onclick="document.getElementById('works').scrollIntoView({ behavior: 'smooth' });">View My
+                    Work</button>
+                <button class="btn-secondary"
+                    onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Contact
+                    Me</button>
+            </div>
+        </section>
 
-            <div class="projects-slider-container">
+        <section class="page-section" id="about">
+            <div class="about-content">
+                <div class="text-content">
+                    <h2 class="section-title">About Me<span class="dot">.</span></h2>
+                    <p>안녕하세요! 디자인과 1학년 김민혁입니다. 저는 생성형 AI를 통해 실험적인 접근을 통해 잠재력을 탐구하는 것을 즐깁니다. 빠르게 변화하는 기술을 디자인에 통합하는 새로운
+                        경험에 관심이 많습니다.</p>
+                    <div class="skill-tags">
+                        <span>핵심 프로젝트</span>
+                        <span>디자인적 사고</span>
+                        <span>생성형 AI 활용</span>
+                    </div>
+                </div>
+                <div class="about-image-placeholder"></div>
+            </div>
+        </section>
 
-                <div class="projects-slider-track" id="projectsTrack">
+        <section id="works" class="page-section">
+            <div class="container" style="max-width: 100%; padding: 0;">
+                <h2 class="section-title" style="margin-left: 20px;">Selected Works<span class="dot">.</span></h2>
 
-                    <div class="project-section-card">
-                        <div class="card-content">
-                            <div class="card-thumbnail" style="background-color: #3b3b45;"></div>
-                            <h3 class="card-title">logo design</h3>
-                            <p class="card-description">디자인과 학생의 로고 디자인.</p>
-                            <a href="#" class="view-project">View Project →</a>
-                        </div>
-                        <div class="project-detail-integrated">
-                            <p class="project-meta-item"><strong>과제명:</strong> logo design</p>
-                            <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 15일</p>
-                            <p class="project-meta-item"><strong>주요 목표:</strong> 나만의 디자인 틱한 로고를 디자인하다</p>
-                            <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
-                            <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 제미나이와 미드 저니를 적극 활용하여 생성형 Ai
-                                활용을 극대화하다</p>
+                <div class="projects-wrapper">
+
+                    <div class="projects-slider-container">
+
+                        <div class="projects-slider-track" id="projectsTrack">
+
+                            <div class="project-section-card">
+                                <div class="card-content">
+                                    <div class="card-thumbnail" style="background-color: #3b3b45;"></div>
+                                    <h3 class="card-title">logo design</h3>
+                                    <p class="card-description">디자인과 학생의 로고 디자인.</p>
+                                    <a href="#" class="view-project">View Project →</a>
+                                </div>
+                                <div class="project-detail-integrated">
+                                    <p class="project-meta-item"><strong>과제명:</strong> logo design</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 15일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> 나만의 디자인 틱한 로고를 디자인하다</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 제미나이와 미드 저니를 적극 활용하여
+                                        생성형 Ai 활용을 극대화하다</p>
+                                </div>
+                            </div>
+
+                            <div class="project-section-card">
+                                <div class="card-content">
+                                    <div class="card-thumbnail" style="background-color: #2a2c3a;"></div>
+                                    <h3 class="card-title">Product design</h3>
+                                    <p class="card-description">디자인과 학생의 제품을 디자인하다.</p>
+                                    <a href="#" class="view-project">View Project →</a>
+                                </div>
+                                <div class="project-detail-integrated">
+                                    <p class="project-meta-item"><strong>과제명:</strong> Product design</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 16일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 활용해서 새로운 제품을 디자인하다</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 생성형 Ai를 활용하여 우리가 상상한
+                                        제품을 실제 제품화 하여 디자인하다</p>
+                                </div>
+                            </div>
+
+                            <div class="project-section-card">
+                                <div class="card-content">
+                                    <div class="card-thumbnail" style="background-color: #3a2c34;"></div>
+                                    <h3 class="card-title">Short Form Design</h3>
+                                    <p class="card-description">Ai를 활용하여 숏폼을 제작하다.</p>
+                                    <a href="#" class="view-project">View Project →</a>
+                                </div>
+                                <div class="project-detail-integrated">
+                                    <p class="project-meta-item"><strong>과제명:</strong> 숏폼 제작</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 11월 4일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> Ai만을 활용하여 숏폼은 디자인하고 제작하다</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio
+                                    </p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 디자인과 학생만의 생각을 가지고 Ai
+                                        숏폼을 제작한다</p>
+                                </div>
+                            </div>
+
+                            <div class="project-section-card">
+                                <div class="card-content">
+                                    <div class="card-thumbnail" style="background-color: #1f3a2c;"></div>
+                                    <h3 class="card-title">공포영화</h3>
+                                    <p class="card-description">제미나이와 미드저니를 적극 활용하여 제작된 공포 영화.</p>
+                                    <a href="#" class="view-project">View Project →</a>
+                                </div>
+                                <div class="project-detail-integrated">
+                                    <p class="project-meta-item"><strong>과제명:</strong> 붉은 디자인</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 10월 19일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 적극 활용하여 7분 영화 제작</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio
+                                    </p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> Ai를 활용하면서 나만의 Ai 활용
+                                        사용법을 터득하는 계기가 되다</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div class="project-section-card">
-                        <div class="card-content">
-                            <div class="card-thumbnail" style="background-color: #2a2c3a;"></div>
-                            <h3 class="card-title">Product design</h3>
-                            <p class="card-description">디자인과 학생의 제품을 디자인하다.</p>
-                            <a href="#" class="view-project">View Project →</a>
-                        </div>
-                        <div class="project-detail-integrated">
-                            <p class="project-meta-item"><strong>과제명:</strong> Product design</p>
-                            <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 16일</p>
-                            <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 활용해서 새로운 제품을 디자인하다</p>
-                            <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
-                            <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 생성형 Ai를 활용하여 우리가 상상한 제품을 실제
-                                제품화 하여 디자인하다</p>
-                        </div>
-                    </div>
-
-                    <div class="project-section-card">
-                        <div class="card-content">
-                            <div class="card-thumbnail" style="background-color: #3a2c34;"></div>
-                            <h3 class="card-title">Short Form Design</h3>
-                            <p class="card-description">Ai를 활용하여 숏폼을 제작하다.</p>
-                            <a href="#" class="view-project">View Project →</a>
-                        </div>
-                        <div class="project-detail-integrated">
-                            <p class="project-meta-item"><strong>과제명:</strong> 숏폼 제작</p>
-                            <p class="project-meta-item"><strong>제출일:</strong> 2025년 11월 4일</p>
-                            <p class="project-meta-item"><strong>주요 목표:</strong> Ai만을 활용하여 숏폼은 디자인하고 제작하다</p>
-                            <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio</p>
-                            <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 디자인과 학생만의 생각을 가지고 Ai 숏폼을
-                                제작한다</p>
-                        </div>
-                    </div>
-
-                    <div class="project-section-card">
-                        <div class="card-content">
-                            <div class="card-thumbnail" style="background-color: #1f3a2c;"></div>
-                            <h3 class="card-title">공포영화</h3>
-                            <p class="card-description">제미나이와 미드저니를 적극 활용하여 제작된 공포 영화.</p>
-                            <a href="#" class="view-project">View Project →</a>
-                        </div>
-                        <div class="project-detail-integrated">
-                            <p class="project-meta-item"><strong>과제명:</strong> 붉은 디자인</p>
-                            <p class="project-meta-item"><strong>제출일:</strong> 2025년 10월 19일</p>
-                            <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 적극 활용하여 7분 영화 제작</p>
-                            <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio</p>
-                            <p class="project-meta-item reflection"><strong>나의 성찰:</strong> Ai를 활용하면서 나만의 Ai 활용 사용법을
-                                터득하는 계기가 되다</p>
-                        </div>
-                    </div>
+                    <button class="slide-control prev-btn" id="prevSlideBtn">&lt;</button>
+                    <button class="slide-control next-btn" id="nextSlideBtn">&gt;</button>
 
                 </div>
             </div>
-
-            <button class="slide-control prev-btn" id="prevSlideBtn" disabled>&lt;</button>
-            <button class="slide-control next-btn" id="nextSlideBtn">&gt;</button>
-
-        </div>
-
-        <section id="contact-info" style="padding-top: 50px; padding-bottom: 200px; text-align: center;">
-            <h2 class="section-title" style="margin-top: 80px;">Contact<span class="dot">.</span></h2>
-            <p style="font-size: 1.2rem; color: #a0a0a0;">이 섹션은 상하 스크롤을 통해 이동하며, 'Selected Works' 섹션만 좌우로 슬라이드됩니다.</p>
-            <p style="font-size: 1.2rem; color: #a0a0a0;">여기에 'About Me' 또는 'Contact' 정보를 채우시면 됩니다.</p>
         </section>
 
-    </div>
+        <section class="page-section" id="contact" style="align-items: flex-start; padding-top: 150px;">
+            <div class="contact-content">
+                <h2 class="section-title">Let's Talk<span class="dot">.</span></h2>
+                <p>새로운 프로젝트에 대해 이야기하고 싶거나, 단순히 인사를 건네고 싶으시다면 언제든 연락해주세요.</p>
+                <div class="contact-details">
+                    <a href="mailto:hello@portfolio.com">hello@portfolio.com</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+                <p style="margin-top: 50px; font-size: 0.9rem; color: #555;">© 2024 Your Name. All rights reserved.</p>
+            </div>
+        </section>
+
+    </main>
 
     <script src="assets/js/main.js"></script>
 
