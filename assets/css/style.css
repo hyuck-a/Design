@@ -434,52 +434,37 @@ h4 {
     opacity: 0.5;
 }
 
-/* --- Projects Section - NEW INTEGRATED CAROUSEL STYLES --- */
+/* --- Projects Section - NEW GRID LAYOUT STYLES --- */
 .dot {
     color: #6a0dad;
 }
 
-/* Carousel Layout */
-.carousel-wrapper {
-    position: relative;
-    width: 100%;
+/* Grid Layout */
+.projects-grid {
+    display: grid;
+    /* Desktop: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding-bottom: 50px;
 }
 
-.carousel-container {
-    overflow: hidden;
-    width: 100%;
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Project Section (Slide Item) */
 .project-section {
-    min-width: calc(100% / 3);
-    flex-shrink: 0;
-    box-sizing: border-box;
-    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    /* Prevents flex items from overflowing container */
 }
 
-/* Project Card Design (Visual Area) */
 .card-content {
     background: #1a1a1f;
     padding: 30px;
     border-radius: 12px;
-    height: 400px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     margin-bottom: 20px;
-    /* Space between card and details */
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.card-content:hover {
-    background: #25252b;
 }
 
 .card-thumbnail {
@@ -504,53 +489,10 @@ h4 {
 }
 
 .view-project {
-    color: #8a2be2;
+    cursor: none !important;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 600;
-    display: inline-block;
-    transition: color 0.3s;
-}
-
-.view-project:hover {
-    color: #ffffff;
-}
-
-/* Navigation Buttons */
-.carousel-control {
-    position: absolute;
-    top: 200px;
-    /* Aligned with card center approx */
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #ffffff;
-    font-size: 1.5rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    opacity: 0.7;
-    transition: background 0.2s, opacity 0.2s;
-}
-
-.carousel-control:hover {
-    background: rgba(255, 255, 255, 0.2);
-    opacity: 1;
-}
-
-.prev-btn {
-    left: -50px;
-}
-
-.next-btn {
-    right: -50px;
-}
-
-.prev-btn:disabled,
-.next-btn:disabled {
-    opacity: 0.3;
-    cursor: default;
 }
 
 /* --- Integrated Project Details --- */
@@ -558,13 +500,13 @@ h4 {
     background: #121215;
     padding: 20px 30px;
     border-radius: 12px;
+    margin-top: auto;
 }
 
 .project-meta-item {
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    margin: 8px 0;
+    color: #b0b0b0;
+    font-size: 0.9rem;
 }
 
 .project-meta-item strong {
@@ -582,31 +524,17 @@ h4 {
     border-top: 1px dashed rgba(255, 255, 255, 0.05);
 }
 
-/* Responsive adjustments */
-@media (max-width: 1300px) {
-    .prev-btn {
-        left: 0;
-    }
-
-    .next-btn {
-        right: 0;
-    }
-}
-
+/* Mobile Responsive: 1 Column */
 @media (max-width: 768px) {
-    .project-section {
-        min-width: 100%;
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
-    .carousel-control {
-        top: 250px;
-        font-size: 1.2rem;
-        width: 30px;
-        height: 30px;
+    .card-content {
+        min-height: auto;
     }
-}
 
-@media (max-width: 768px) {
     .headline {
         font-size: 3rem;
     }
@@ -635,10 +563,5 @@ h4 {
 
     .cta-group {
         justify-content: center;
-    }
-
-    /* Carousel Mobile */
-    .project-card {
-        min-width: 100%;
     }
 }

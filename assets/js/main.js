@@ -62,62 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Carousel Logic (Added) ---
-    const track = document.getElementById('carouselTrack');
-    if (track) {
-        const cards = Array.from(track.children);
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
 
-        // 뷰포트 너비에 따라 한 번에 몇 개의 카드를 보여줄지 결정 (CSS의 min-width와 일치해야 함)
-        const getCardsPerView = () => window.innerWidth <= 768 ? 1 : 3;
-        let currentCardIndex = 0;
-
-        const updateCarousel = () => {
-            const cardsPerView = getCardsPerView();
-            // (100% / cardsPerView)는 한 카드의 너비를 백분율로 나타냅니다.
-            const cardWidthPercentage = 100 / cardsPerView;
-            const offset = -currentCardIndex * cardWidthPercentage;
-
-            // CSS Transform으로 슬라이딩 애니메이션 적용
-            track.style.transform = `translateX(${offset}%)`;
-
-            // 버튼 상태 업데이트
-            if (prevBtn) prevBtn.disabled = currentCardIndex === 0;
-
-            // 슬라이드 가능한 최대 지점 계산
-            const maxIndex = Math.max(0, cards.length - cardsPerView);
-            if (nextBtn) nextBtn.disabled = currentCardIndex >= maxIndex;
-        };
-
-        const moveNext = () => {
-            const cardsPerView = getCardsPerView();
-            const maxIndex = cards.length - cardsPerView;
-            if (currentCardIndex < maxIndex) {
-                currentCardIndex++;
-                updateCarousel();
-            }
-        };
-
-        const movePrev = () => {
-            if (currentCardIndex > 0) {
-                currentCardIndex--;
-                updateCarousel();
-            }
-        };
-
-        if (nextBtn) nextBtn.addEventListener('click', moveNext);
-        if (prevBtn) prevBtn.addEventListener('click', movePrev);
-
-        // 초기 로드 시 및 창 크기 변경 시 캐러셀 업데이트
-        window.addEventListener('resize', () => {
-            // 뷰포트 변경 시 currentCardIndex를 0으로 리셋하여 예상치 못한 슬라이딩 오류 방지
-            currentCardIndex = 0;
-            updateCarousel();
-        });
-
-        updateCarousel(); // 초기 상태 설정
-    }
 
     // --- Dynamic Cursor Interaction (with Lerp & Return to Home) ---
     if (window.innerWidth > 768) {
