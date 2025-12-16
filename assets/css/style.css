@@ -138,9 +138,15 @@ h2.section-title {
 
 .card-thumbnail {
     flex-grow: 1;
-    background: rgba(255, 255, 255, 0.05);
+    background: #121215;
+    /* Background color when no image */
     margin-bottom: 20px;
     border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .card-title {
