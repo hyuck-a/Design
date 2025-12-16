@@ -1,43 +1,35 @@
-/* --- Variables & Design System --- */
-:root {
-    --bg-color: #0c0c0e;
-    --surface-color: #16161a;
-    --text-primary: #fffffe;
-    --text-secondary: #94a1b2;
-    --accent-color: #7f5af0;
-    --accent-glow: rgba(127, 90, 240, 0.4);
-    --secondary-accent: #2cb67d;
-
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
-
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-    --container-width: 1200px;
-    --spacing-section: 120px;
-}
-
-/* --- Global Reset --- */
-* {
+/* --- Antigravity Base Styles --- */
+body {
+    background-color: #000000;
+    color: #e0e0e0;
+    font-family: 'Inter', 'Pretendard', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    overflow-x: hidden;
-    /* Hide default cursor to use custom one */
+    /* Removing padding for full page slide */
+    overflow: hidden;
+    /* Prevent vertical scrolling */
     cursor: none;
 }
 
-/* --- Dynamic Interaction Elements --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h2.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.dot {
+    color: #6a0dad;
+}
+
+/* --- 1. Glow Blob & Cursor (Shared) --- */
 #glow-blob {
     position: fixed;
     top: 0;
@@ -53,17 +45,11 @@ body {
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: -1;
-    /* Transition removed for dynamic JS control */
     opacity: 1;
 }
 
-/* Noise Background Removed */
-/* body::before removed */
-
 #custom-cursor {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -77,10 +63,8 @@ body {
         height 0.3s cubic-bezier(0.2, 0.7, 0.4, 1),
         border-color 0.3s ease,
         background 0.3s ease;
-    will-change: width, height, transform, top, left;
 }
 
-/* Click State */
 .cursor-clicked {
     width: 45px !important;
     height: 45px !important;
@@ -93,7 +77,6 @@ body {
     transform: translate(-50%, -50%) scale(0.95);
 }
 
-/* Hover State */
 .cursor-hover {
     width: 30px !important;
     height: 30px !important;
@@ -102,358 +85,44 @@ body {
     box-shadow: 0 0 5px #6a0dad;
 }
 
-/* Ensure interactive elements also hide cursor */
-a,
-button,
-.carousel-control,
-.view-project,
-.card-content {
-    cursor: none !important;
+/* --- 3. Full Page Slide & Grid Layout --- */
+.page-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@media (max-width: 768px) {
-    body {
-        cursor: default;
-    }
-
-    #glow-blob,
-    #custom-cursor {
-        display: none;
-    }
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition-smooth);
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* --- Typography --- */
-h1,
-h2,
-h3,
-h4 {
-    font-family: var(--font-heading);
-    line-height: 1.1;
-    color: var(--text-primary);
-}
-
-.gradient-text {
-    background: linear-gradient(135deg, #fff 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-}
-
-/* --- Layout Utils --- */
-.container {
-    width: 90%;
-    max-width: var(--container-width);
-    margin: 0 auto;
-}
-
-.section {
-    padding: var(--spacing-section) 0;
-    min-height: 80vh;
+.page-section {
+    min-width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 50px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-/* --- Navbar --- */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem 5%;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: rgba(12, 12, 14, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
 }
 
-.logo {
-    font-family: var(--font-heading);
-    font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.9rem;
-    position: relative;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: var(--text-primary);
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: var(--transition-smooth);
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
+.section-content {
+    max-width: 1200px;
     width: 100%;
 }
 
-.hamburger {
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.hamburger span {
-    width: 25px;
-    height: 2px;
-    background-color: var(--text-primary);
-    transition: var(--transition-smooth);
-}
-
-/* --- Hero Section --- */
-.hero-container {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    align-items: center;
-    gap: 2rem;
-}
-
-.eyebrow {
-    color: var(--accent-color);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.headline {
-    font-size: 4.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.subheadline {
-    color: var(--text-secondary);
-    font-size: 1.125rem;
-    max-width: 500px;
-    margin-bottom: 2.5rem;
-}
-
-.cta-group {
-    display: flex;
-    gap: 1rem;
-}
-
-.btn {
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: #fff;
-    border: 2px solid var(--accent-color);
-    box-shadow: 0 4px 20px var(--accent-glow);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px var(--accent-glow);
-}
-
-.btn-outline {
-    background: transparent;
-    border: 2px solid var(--surface-color);
-    color: var(--text-primary);
-}
-
-.btn-outline:hover {
-    border-color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-/* Hero Visual (Abstract) */
-.hero-visual {
-    position: relative;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.abstract-shape {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(45deg, var(--accent-color), var(--secondary-accent));
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    filter: blur(40px);
-    opacity: 0.6;
-    animation: morph 8s ease-in-out infinite;
-    position: absolute;
-}
-
-.shape-2 {
-    width: 250px;
-    height: 250px;
-    background: blue;
-    animation-delay: -4s;
-    filter: blur(60px);
-    opacity: 0.4;
-    right: 10%;
-}
-
-@keyframes morph {
-    0% {
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        transform: translate(0, 0) rotate(0deg);
-    }
-
-    50% {
-        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-        transform: translate(-20px, 20px) rotate(10deg);
-    }
-
-    100% {
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        transform: translate(0, 0) rotate(0deg);
-    }
-}
-
-/* --- About Section --- */
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    position: relative;
-}
-
-/* User's request for dot on Selected Works section title */
-/* .section-title::after is removed from global scope to avoid conflict with the dot span in HTML */
-/* But we need to keep it for About Me and Contact if they don't have the span. */
-/* Just in case, I will remove the global .section-title::after and rely on manual dots or add it selectively. */
-/* Wait, the previous code had .section-title::after { content: '.' } */
-/* The new code uses <span class="dot">.</span>. */
-/* I will modify the previous rule to only apply if no .dot is present, or just remove it and assume standard practice. */
-/* To be safe, I will keep the CSS but override it for the projects section if needed, or simply let the user's HTML prevail. */
-/* Actually, the user's CSS for h2.section-title sets margin-bottom: 40px while existing is 3rem. */
-
-.section-title::after {
-    /* content: '.';  <-- Removing this to avoid double dots if the user puts one in HTML */
-    color: var(--accent-color);
-}
-
-/* Re-adding it for elements that might rely on it if I don't change their HTML. */
-/* The exisiting sections (About, Contact) rely on this. */
-/* I'll target specific sections if I can, or just update the HTML for About and Contact to include the dot manually later. */
-/* For now, to avoid breaking other sections, I will keep it but maybe scoped? */
-/* Actually, let's just comment it out and I will add the dot manually to other sections in a future step if needed, or just leave it off. */
-/* Better yet, I'll use :not() selector if possible? No. */
-/* Let's just remove the ::after content property for now and assume titles will handle it. */
-/* Or I will simply overwrite it for the new section context. */
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-}
-
-.skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-}
-
-.skill-tag {
-    background: var(--surface-color);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.image-placeholder {
-    width: 100%;
-    height: 400px;
-    background: var(--surface-color);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-.image-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background: var(--accent-color);
-    border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.5;
-}
-
-/* --- Projects Section - NEW GRID LAYOUT STYLES --- */
-.dot {
-    color: #6a0dad;
-}
-
-/* Grid Layout */
+/* Projects Grid */
 .projects-grid {
     display: grid;
-    /* Desktop: 2 columns */
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
     padding-bottom: 50px;
 }
 
-.project-section {
+/* Project Cards */
+.project-section-card {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-width: 0;
-    /* Prevents flex items from overflowing container */
 }
 
 .card-content {
@@ -495,7 +164,6 @@ h4 {
     font-weight: 600;
 }
 
-/* --- Integrated Project Details --- */
 .project-detail-integrated {
     background: #121215;
     padding: 20px 30px;
@@ -524,44 +192,67 @@ h4 {
     border-top: 1px dashed rgba(255, 255, 255, 0.05);
 }
 
-/* Mobile Responsive: 1 Column */
+/* Navigation Buttons (Page Control) */
+.page-control {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.page-control:hover {
+    opacity: 1;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
+    body {
+        cursor: default;
+        overflow-y: auto;
+    }
+
+    .page-wrapper {
+        flex-direction: column;
+        height: auto;
+        transition: none;
+    }
+
+    .page-section {
+        min-height: 100vh;
+        height: auto;
+        padding: 50px 20px;
+    }
+
+    #glow-blob,
+    #custom-cursor,
+    .page-control {
+        display: none;
+    }
+
     .card-content {
         min-height: auto;
-    }
-
-    .headline {
-        font-size: 3rem;
-    }
-
-    .hero-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .hero-visual {
-        display: none;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    /* Simplified mobile for now */
-    .hamburger {
-        display: flex;
-    }
-
-    .cta-group {
-        justify-content: center;
     }
 }

@@ -1,167 +1,118 @@
-
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. 페이지 슬라이드 기능 구현 ---
+    const pageWrapper = document.getElementById('pageWrapper');
+    const sections = document.querySelectorAll('.page-section');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
 
-    // --- Reveal Animations on Scroll ---
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-    };
+    // 페이지 슬라이드 기능이 활성화된 경우에만 실행
+    if (pageWrapper && sections.length > 0 && prevBtn && nextBtn) {
+        let currentPageIndex = 0;
+        const totalPages = sections.length;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('show');
-                observer.unobserve(entry.target); // Run once
+        const updatePage = () => {
+            // 100vw 단위로 이동
+            const offset = -currentPageIndex * 100;
+            pageWrapper.style.transform = `translateX(${offset}vw)`;
+
+            // 버튼 상태 업데이트
+            prevBtn.disabled = currentPageIndex === 0;
+            nextBtn.disabled = currentPageIndex === totalPages - 1;
+        };
+
+        const moveNext = () => {
+            if (currentPageIndex < totalPages - 1) {
+                currentPageIndex++;
+                updatePage();
             }
-        });
-    }, observerOptions);
+        };
 
-    const hiddenElements = document.querySelectorAll('.hidden');
-    hiddenElements.forEach(el => observer.observe(el));
-
-
-    // --- Active Link Highlighting ---
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                current = section.getAttribute('id');
+        const movePrev = () => {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updatePage();
             }
-        });
+        };
 
-        navLinks.forEach(a => {
-            a.classList.remove('active');
-            if (a.getAttribute('href').includes(current)) {
-                a.classList.add('active');
-            }
-        });
-    });
+        nextBtn.addEventListener('click', moveNext);
+        prevBtn.addEventListener('click', movePrev);
 
-    // --- Mobile Menu Toggle (Simple) ---
-    const hamburger = document.querySelector('.hamburger');
-    const navUl = document.querySelector('.nav-links');
-
-    if (hamburger && navUl) {
-        hamburger.addEventListener('click', () => {
-            const isHidden = navUl.style.display === 'none' || navUl.style.display === '';
-            if (window.innerWidth <= 768) {
-                navUl.style.display = isHidden ? 'flex' : 'none';
-                navUl.style.flexDirection = 'column';
-                navUl.style.position = 'absolute';
-                navUl.style.top = '70px';
-                navUl.style.left = '0';
-                navUl.style.width = '100%';
-                navUl.style.background = '#0c0c0e';
-                navUl.style.padding = '2rem';
-            }
-        });
+        // 초기 설정
+        updatePage();
     }
 
-
-
-    // --- Dynamic Cursor Interaction (with Lerp & Return to Home) ---
+    // --- 2. 커서 추적 및 역동적 발광체 구현 ---
     if (window.innerWidth > 768) {
         const glowBlob = document.getElementById('glow-blob');
         const customCursor = document.getElementById('custom-cursor');
-        const interactables = document.querySelectorAll('a, button, .card-content, .carousel-control');
+        const interactables = document.querySelectorAll('a, button, .card-content, .page-control'); // page-control 추가
 
         if (glowBlob && customCursor) {
-            // Position variables
-            const homeX = window.innerWidth * 0.75; // 3/4 Width
-            const homeY = window.innerHeight * 0.5; // Center Height
-
+            const homeX = window.innerWidth * 0.75;
+            const homeY = window.innerHeight * 0.5;
             let targetX = homeX;
             let targetY = homeY;
             let currentX = homeX;
             let currentY = homeY;
+            const lerpFactor = 0.1;
+            const returnLerpFactor = 0.01;
 
-            // Tuning parameters
-            const lerpFactor = 0.1; // Smooth following speed
-            const returnLerpFactor = 0.01; // 마우스 이탈 시 복귀 속도 (느리게 모이는 효과)
-
-            // State
-            let isHovering = false;
-            let isClicked = false;
-
-            // 1. Normalize Mouse Event
-            const onMouseMove = (e) => {
+            document.addEventListener('mousemove', (e) => {
                 targetX = e.clientX;
                 targetY = e.clientY;
-                isHovering = true;
-            };
+            });
 
-            // 2. Return to Home Trigger
-            const onMouseLeave = () => {
+            document.addEventListener('mouseleave', () => {
                 targetX = homeX;
                 targetY = homeY;
-                isHovering = false;
-            };
+            });
 
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseleave', onMouseLeave);
-
-            // Click State Tracking
+            let isClicked = false;
             document.addEventListener('mousedown', () => {
-                isClicked = true;
                 customCursor.classList.add('cursor-clicked');
+                isClicked = true;
             });
             document.addEventListener('mouseup', () => {
-                isClicked = false;
                 customCursor.classList.remove('cursor-clicked');
+                isClicked = false;
             });
 
-            // Linear Interpolation Helper
             const lerp = (start, end, factor) => {
                 return start * (1 - factor) + end * factor;
             };
 
-            // Animation Loop
             const updateBlob = () => {
-                // Determine speed factor based on state
-                // If mouse is inside (isHovering), follow faster. If outside, return slower.
-                // Note: document.body:hover trick might be simpler, but using explicit state is safer.
-                const factor = isHovering ? lerpFactor : returnLerpFactor;
+                const factor = (targetX === homeX && targetY === homeY) ? returnLerpFactor : lerpFactor;
 
                 currentX = lerp(currentX, targetX, factor);
                 currentY = lerp(currentY, targetY, factor);
 
-                // Center correction (Blob size 450px -> half is 225px)
+                // CSS 적용 (발광체 중심 보정 - 450px의 절반인 225px)
                 const translateX = currentX - 225;
                 const translateY = currentY - 225;
 
-                // Venom Effect: Scale up and blur more on click
-                const scale = isClicked ? 1.2 : 1.0;
-                const blurVal = isClicked ? 250 : 180; // dynamic blur
+                const sizeAdjustment = isClicked ? 1.2 : 1.0;
+                const blurAdjustment = isClicked ? 250 : 180;
 
-                // Apply styles
-                glowBlob.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-                glowBlob.style.filter = `blur(${blurVal}px)`;
+                glowBlob.style.transform = `translate(${translateX}px, ${translateY}px) scale(${sizeAdjustment})`;
+                glowBlob.style.filter = `blur(${blurAdjustment}px)`;
 
-                // Cursor strictly follows mouse (or target if we wanted it to return too, but usually cursor stays with mouse)
-                // However, if mouse leaves window, targetX goes to home. 
-                // We should probably keep custom cursor at mouse position always, 
-                // BUT if mouse leaves, system cursor disappears. 
-                // Let's just follow targetX/Y which represents "intended focus".
                 customCursor.style.left = `${targetX}px`;
                 customCursor.style.top = `${targetY}px`;
 
                 requestAnimationFrame(updateBlob);
             };
 
-            // Ignite loop
-            updateBlob();
-
-            // Hover effects on interactive elements
             interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => customCursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => customCursor.classList.remove('cursor-hover'));
+                el.addEventListener('mouseenter', () => {
+                    customCursor.classList.add('cursor-hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    customCursor.classList.remove('cursor-hover');
+                });
             });
+
+            updateBlob();
         }
     }
-
 });
