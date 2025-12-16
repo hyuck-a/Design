@@ -38,24 +38,23 @@ body {
 }
 
 /* --- Dynamic Interaction Elements --- */
-/* --- Dynamic Interaction Elements --- */
 #glow-blob {
     position: fixed;
     top: 0;
     left: 0;
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     background: radial-gradient(circle at center,
-            rgba(90, 0, 150, 0.4) 10%,
-            rgba(138, 43, 226, 0.2) 30%,
+            rgba(90, 0, 150, 0.5) 10%,
+            rgba(138, 43, 226, 0.3) 30%,
             transparent 70%);
     border-radius: 50%;
-    filter: blur(200px);
+    filter: blur(180px);
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: -1;
-    /* transition: transform 0s linear; Removed for real-time update in JS */
-    opacity: 0.9;
+    /* Transition removed for dynamic JS control */
+    opacity: 1;
 }
 
 /* Noise Background Removed */

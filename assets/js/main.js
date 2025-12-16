@@ -119,42 +119,102 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCarousel(); // 초기 상태 설정
     }
 
-    // --- Dynamic Cursor Interaction ---
-    if (window.innerWidth > 768) { // Desktop Only
+    // --- Dynamic Cursor Interaction (with Lerp & Return to Home) ---
+    if (window.innerWidth > 768) {
         const glowBlob = document.getElementById('glow-blob');
         const customCursor = document.getElementById('custom-cursor');
-        // Select interactive elements: links, buttons, and card content areas
         const interactables = document.querySelectorAll('a, button, .card-content, .carousel-control');
 
         if (glowBlob && customCursor) {
-            // Mouse movement tracking
-            // Mouse movement tracking
-            // Mouse movement tracking (Real-time, no delay for hyper-reactivity)
-            document.addEventListener('mousemove', (e) => {
-                // translate() half of 500px (250px) to center
-                glowBlob.style.transform = `translate(${e.clientX - 250}px, ${e.clientY - 250}px)`;
+            // Position variables
+            const homeX = window.innerWidth * 0.75; // 3/4 Width
+            const homeY = window.innerHeight * 0.5; // Center Height
 
-                // Custom cursor follows instantly
-                customCursor.style.left = `${e.clientX}px`;
-                customCursor.style.top = `${e.clientY}px`;
-            });
+            let targetX = homeX;
+            let targetY = homeY;
+            let currentX = homeX;
+            let currentY = homeY;
 
-            // Click effects
+            // Tuning parameters
+            const lerpFactor = 0.1; // Smooth following speed
+            const returnLerpFactor = 0.02; // Slower return speed
+
+            // State
+            let isHovering = false;
+            let isClicked = false;
+
+            // 1. Normalize Mouse Event
+            const onMouseMove = (e) => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+                isHovering = true;
+            };
+
+            // 2. Return to Home Trigger
+            const onMouseLeave = () => {
+                targetX = homeX;
+                targetY = homeY;
+                isHovering = false;
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseleave', onMouseLeave);
+
+            // Click State Tracking
             document.addEventListener('mousedown', () => {
+                isClicked = true;
                 customCursor.classList.add('cursor-clicked');
             });
             document.addEventListener('mouseup', () => {
+                isClicked = false;
                 customCursor.classList.remove('cursor-clicked');
             });
 
+            // Linear Interpolation Helper
+            const lerp = (start, end, factor) => {
+                return start * (1 - factor) + end * factor;
+            };
+
+            // Animation Loop
+            const updateBlob = () => {
+                // Determine speed factor based on state
+                // If mouse is inside (isHovering), follow faster. If outside, return slower.
+                // Note: document.body:hover trick might be simpler, but using explicit state is safer.
+                const factor = isHovering ? lerpFactor : returnLerpFactor;
+
+                currentX = lerp(currentX, targetX, factor);
+                currentY = lerp(currentY, targetY, factor);
+
+                // Center correction (Blob size 450px -> half is 225px)
+                const translateX = currentX - 225;
+                const translateY = currentY - 225;
+
+                // Venom Effect: Scale up and blur more on click
+                const scale = isClicked ? 1.2 : 1.0;
+                const blurVal = isClicked ? 250 : 180; // dynamic blur
+
+                // Apply styles
+                glowBlob.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                glowBlob.style.filter = `blur(${blurVal}px)`;
+
+                // Cursor strictly follows mouse (or target if we wanted it to return too, but usually cursor stays with mouse)
+                // However, if mouse leaves window, targetX goes to home. 
+                // We should probably keep custom cursor at mouse position always, 
+                // BUT if mouse leaves, system cursor disappears. 
+                // Let's just follow targetX/Y which represents "intended focus".
+                customCursor.style.left = `${targetX}px`;
+                customCursor.style.top = `${targetY}px`;
+
+                requestAnimationFrame(updateBlob);
+            };
+
+            // Ignite loop
+            updateBlob();
+
             // Hover effects on interactive elements
             interactables.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    customCursor.classList.add('cursor-hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    customCursor.classList.remove('cursor-hover');
-                });
+                el.addEventListener('mouseenter', () => customCursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => customCursor.classList.remove('cursor-hover'));
             });
         }
     }
