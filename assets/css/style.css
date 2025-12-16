@@ -5,16 +5,17 @@ body {
     font-family: 'Inter', 'Pretendard', sans-serif;
     margin: 0;
     padding: 0;
-    /* Removing padding for full page slide */
-    overflow: hidden;
-    /* Prevent vertical scrolling */
+    overflow-x: hidden;
+    /* 수평 스크롤 방지 */
+    overflow-y: auto;
+    /* 페이지 전체는 세로 스크롤 가능 */
     cursor: none;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 50px 20px;
 }
 
 h2.section-title {
@@ -85,46 +86,35 @@ h2.section-title {
     box-shadow: 0 0 5px #6a0dad;
 }
 
-/* --- 3. Full Page Slide & Grid Layout --- */
-.page-wrapper {
-    display: flex;
+/* --- 3. Project Section Slider Styles --- */
+.projects-wrapper {
+    position: relative;
+    padding-bottom: 80px;
+}
+
+/* Slider Visible Area */
+.projects-slider-container {
+    overflow-x: hidden;
     width: 100%;
-    height: 100vh;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 20px 0;
 }
 
-.page-section {
-    min-width: 100vw;
-    height: 100vh;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    padding: 50px 20px;
+/* Project Track */
+.projects-slider-track {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    transition: transform 0.5s ease-in-out;
 }
 
-.section-content {
-    max-width: 1200px;
-    width: 100%;
-}
-
-/* Projects Grid */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    padding-bottom: 50px;
-}
-
-/* Project Cards */
+/* Project Card Item */
 .project-section-card {
+    min-width: 380px;
+    margin-right: 30px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
+/* Card Content & Details */
 .card-content {
     background: #1a1a1f;
     padding: 30px;
@@ -139,14 +129,12 @@ h2.section-title {
 .card-thumbnail {
     flex-grow: 1;
     background: #121215;
-    /* Background color when no image */
     margin-bottom: 20px;
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .card-title {
@@ -198,12 +186,12 @@ h2.section-title {
     border-top: 1px dashed rgba(255, 255, 255, 0.05);
 }
 
-/* Navigation Buttons (Page Control) */
-.page-control {
-    position: fixed;
+/* Navigation Buttons (Slider Control) */
+.slide-control {
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
     color: #ffffff;
     font-size: 1.5rem;
@@ -211,54 +199,60 @@ h2.section-title {
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    z-index: 10;
-    opacity: 0.7;
-    transition: opacity 0.3s;
+    z-index: 5;
+    transition: background 0.3s, opacity 0.3s;
+    margin: 0 10px;
 }
 
-.page-control:hover {
-    opacity: 1;
+.slide-control:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .prev-btn {
-    left: 20px;
+    left: 0;
 }
 
 .next-btn {
-    right: 20px;
+    right: 0;
+}
+
+.slide-control:disabled {
+    opacity: 0.3;
+    cursor: default;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
     body {
         cursor: default;
-        overflow-y: auto;
     }
 
-    .page-wrapper {
-        flex-direction: column;
-        height: auto;
-        transition: none;
+    .container {
+        padding: 0 10px;
     }
 
-    .page-section {
-        min-height: 100vh;
-        height: auto;
-        padding: 50px 20px;
+    .section-title {
+        margin-left: 10px;
     }
 
     #glow-blob,
     #custom-cursor,
-    .page-control {
+    .slide-control {
         display: none;
     }
 
-    .card-content {
-        min-height: auto;
+    .projects-slider-container {
+        overflow-x: visible;
+        padding: 0;
+    }
+
+    .projects-slider-track {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .project-section-card {
+        min-width: 100%;
+        margin-right: 0;
     }
 }
