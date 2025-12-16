@@ -20,6 +20,13 @@
             line-height: 1.6;
         }
 
+        /* 모든 요소에 커서 숨김 강제 적용 (데스크탑) */
+        @media (min-width: 769px) {
+            * {
+                cursor: none !important;
+            }
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -57,7 +64,6 @@
             margin-left: 30px;
             font-weight: 500;
             transition: color 0.3s;
-            cursor: none;
         }
 
         .nav-links a:hover,
@@ -121,7 +127,6 @@
             margin-right: 15px;
             transition: background 0.3s;
             border: none;
-            cursor: none;
         }
 
         .btn-secondary {
@@ -133,7 +138,6 @@
             font-weight: 600;
             transition: background 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: none;
         }
 
         /* About Section Specific (이미지 관련 CSS) */
@@ -300,7 +304,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* 기본 스타일: 모든 이미지가 꽉 차도록 설정 */
+            /* 이미지 꽉 채우기 스타일 설정 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -320,9 +324,7 @@
             margin-bottom: 20px;
         }
 
-        .view-project {
-            cursor: none !important;
-        }
+        .view-project {}
 
         .project-detail-integrated {
             background: #121215;
@@ -358,7 +360,6 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            cursor: none;
             z-index: 5;
             transition: background 0.3s, opacity 0.3s;
             margin: 0 10px;
@@ -378,7 +379,6 @@
 
         .slide-control:disabled {
             opacity: 0.3;
-            cursor: none !important;
         }
 
         /* --- Responsive Design --- */
@@ -501,26 +501,30 @@
                     <div class="projects-slider-container">
                         <div class="projects-slider-track" id="projectsTrack">
 
+                            <!-- 1. 공포영화 (Horror Movie) -->
                             <div class="project-section-card">
                                 <div class="card-content">
-                                    <div class="card-thumbnail" style="background-image: url('logo_design.jpg');"></div>
-                                    <h3 class="card-title">logo design</h3>
-                                    <p class="card-description">디자인과 학생의 로고 디자인.</p>
+                                    <div class="card-thumbnail" style="background-image: url('./horror_movie.png');">
+                                    </div>
+                                    <h3 class="card-title">공포영화</h3>
+                                    <p class="card-description">제미나이와 미드저니를 적극 활용하여 제작된 공포 영화.</p>
                                     <a href="#" class="view-project">View Project →</a>
                                 </div>
                                 <div class="project-detail-integrated">
-                                    <p class="project-meta-item"><strong>과제명:</strong> logo design</p>
-                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 15일</p>
-                                    <p class="project-meta-item"><strong>주요 목표:</strong> 나만의 디자인 틱한 로고를 디자인하다</p>
-                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
-                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 제미나이와 미드 저니를 적극 활용하여
-                                        생성형 Ai 활용을 극대화하다</p>
+                                    <p class="project-meta-item"><strong>과제명:</strong> 붉은 디자인</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 10월 19일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 적극 활용하여 7분 영화 제작</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio
+                                    </p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> Ai를 활용하면서 나만의 Ai 활용
+                                        사용법을 터득하는 계기가 되다</p>
                                 </div>
                             </div>
 
+                            <!-- 2. Product Design -->
                             <div class="project-section-card">
                                 <div class="card-content">
-                                    <div class="card-thumbnail" style="background-image: url('product_design.png');">
+                                    <div class="card-thumbnail" style="background-image: url('./product_design.png');">
                                     </div>
                                     <h3 class="card-title">Product design</h3>
                                     <p class="card-description">디자인과 학생의 제품을 디자인하다.</p>
@@ -536,9 +540,30 @@
                                 </div>
                             </div>
 
+                            <!-- 3. Logo Design -->
                             <div class="project-section-card">
                                 <div class="card-content">
-                                    <div class="card-thumbnail" style="background-image: url('short_form.jpg');"></div>
+                                    <div class="card-thumbnail" style="background-image: url('./logo_design.jpg');">
+                                    </div>
+                                    <h3 class="card-title">logo design</h3>
+                                    <p class="card-description">디자인과 학생의 로고 디자인.</p>
+                                    <a href="#" class="view-project">View Project →</a>
+                                </div>
+                                <div class="project-detail-integrated">
+                                    <p class="project-meta-item"><strong>과제명:</strong> logo design</p>
+                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 9월 15일</p>
+                                    <p class="project-meta-item"><strong>주요 목표:</strong> 나만의 디자인 틱한 로고를 디자인하다</p>
+                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini</p>
+                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 제미나이와 미드 저니를 적극 활용하여
+                                        생성형 Ai 활용을 극대화하다</p>
+                                </div>
+                            </div>
+
+                            <!-- 4. Short Form -->
+                            <div class="project-section-card">
+                                <div class="card-content">
+                                    <div class="card-thumbnail" style="background-image: url('./short_form.jpg');">
+                                    </div>
                                     <h3 class="card-title">Short Form Design</h3>
                                     <p class="card-description">Ai를 활용하여 숏폼을 제작하다.</p>
                                     <a href="#" class="view-project">View Project →</a>
@@ -551,25 +576,6 @@
                                     </p>
                                     <p class="project-meta-item reflection"><strong>나의 성찰:</strong> 디자인과 학생만의 생각을 가지고 Ai
                                         숏폼을 제작한다</p>
-                                </div>
-                            </div>
-
-                            <div class="project-section-card">
-                                <div class="card-content">
-                                    <div class="card-thumbnail" style="background-image: url('horror_movie.png');">
-                                    </div>
-                                    <h3 class="card-title">공포영화</h3>
-                                    <p class="card-description">제미나이와 미드저니를 적극 활용하여 제작된 공포 영화.</p>
-                                    <a href="#" class="view-project">View Project →</a>
-                                </div>
-                                <div class="project-detail-integrated">
-                                    <p class="project-meta-item"><strong>과제명:</strong> 붉은 디자인</p>
-                                    <p class="project-meta-item"><strong>제출일:</strong> 2025년 10월 19일</p>
-                                    <p class="project-meta-item"><strong>주요 목표:</strong> 생성형 Ai를 적극 활용하여 7분 영화 제작</p>
-                                    <p class="project-meta-item"><strong>사용 툴:</strong> Midjourney, gemini, AI Studio
-                                    </p>
-                                    <p class="project-meta-item reflection"><strong>나의 성찰:</strong> Ai를 활용하면서 나만의 Ai 활용
-                                        사용법을 터득하는 계기가 되다</p>
                                 </div>
                             </div>
 
