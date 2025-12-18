@@ -333,10 +333,14 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            padding: 8px 16px;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            border-radius: 6px;
-            background: rgba(138, 43, 226, 0.05);
+            padding: 10px 20px;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 8px;
+            background: rgba(138, 43, 226, 0.1);
+            position: relative;
+            z-index: 999;
+            pointer-events: auto !important;
+            cursor: pointer !important;
         }
 
         .view-project:hover {
@@ -344,7 +348,7 @@
             background: #8a2be2;
             border-color: #8a2be2;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.5);
         }
 
         .project-detail-integrated {
